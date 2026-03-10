@@ -12,4 +12,81 @@ My first assignment has two parts.
 
 ## (a)
 
+In the video, Cem Vardar discusses the relationship between industrial engineering and data science. He explains that engineering is fundamentally about solving problems using scientific and mathematical methods.
+
+According to the speaker, industrial engineers often work with complex systems such as supply chains, factories, and logistics networks. In these systems, data analytics plays an important role because it helps organizations analyze large amounts of data and identify patterns that improve decision-making.
+
+The speaker also explains different roles in the data field, such as data analysts, data scientists, and machine learning engineers. These professionals analyze data, build predictive models, and support companies in making better strategic decisions.
+
+Overall, the video emphasizes that data science is not an independent goal but rather a powerful tool that engineers use to solve real-world problems and improve organizational performance.
+
 ## (b)
+
+### Open-ended Question
+
+**Question:**\
+Why is data analytics important for organizations?
+
+**Answer:**\
+Data analytics is important because it helps organizations analyze large amounts of data, identify patterns and trends, and make better data-driven decisions.
+
+### Multiple Choice Question
+
+**Question:**\
+Which of the following best describes the role of data science in organizations?
+
+A\) Replacing human workers\
+B) Storing company data only\
+C) Analyzing data to support decision making\
+D) Designing computer hardware
+
+**Correct Answer:** C
+
+```{r}
+library(dslabs)
+
+data("polls_us_election_2016")
+
+head(polls_us_election_2016)
+
+my_first <- "Ceyda"
+
+my_birth_year <- 2001
+
+k <- (nchar(my_first) + my_birth_year) %% 15 + 8
+
+if(k %% 2 == 0){
+  head(polls_us_election_2016, k)
+} else {
+  tail(polls_us_election_2016, k)
+}
+sum(is.na(polls_us_election_2016))
+
+sort(colSums(is.na(polls_us_election_2016)), decreasing = TRUE)[1:8]
+
+polls_new <- polls_us_election_2016
+
+for(col in names(polls_new)){
+  
+  if(is.numeric(polls_new[[col]])){
+    polls_new[[col]][is.na(polls_new[[col]])] <- my_birth_year + k
+  }
+  
+  if(is.character(polls_new[[col]]) | is.factor(polls_new[[col]])){
+    
+    polls_new[[col]] <- as.character(polls_new[[col]])
+    
+    polls_new[[col]][is.na(polls_new[[col]])] <- paste0(my_first,"_",k)
+  }
+}
+sum(is.na(polls_new))
+
+any(is.na(polls_new))
+
+if(k %% 2 == 0){
+  head(polls_new, k)
+} else {
+  tail(polls_new, k)
+}
+
+```
